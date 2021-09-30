@@ -1,0 +1,6 @@
+body{
+     background: url("../image/page1.jpg") no-repeat ;
+     /*height: 10%;*/
+     background-size:cover;     /*color: white;*/
+
+     }

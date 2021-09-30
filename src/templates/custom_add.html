@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{% load static %}
+<html dir="rtl" lang="fa">
+<head>
+	<title>كتاب بخوان</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+	<link rel="stylesheet" type="text/css" href="{% static 'css/main2.css' %}">
+    <link rel="stylesheet" href="{% static 'css/mycss.css' %}">
+
+
+<h1 style="text-align: right">آدرس:</h1>
+<ul style="text-align: center" >
+{% for address in object_list%}
+
+
+
+    {% if address.customer == request.user %}
+
+        <li >{{ address.city }}, {{ address.street }}, كد پستي: {{ address.postal_code }} ,{{ address.address_line1 }}
+             <a   href="{% url 'adredit' address.id %}" class="col-1 card-link"><button class="btn  btn-success btn-primary ">ویرایش</button></a>
+
+
+
+        </li>
+
+    {% endif %}
+
+{% endfor %}
+</ul>
+
+

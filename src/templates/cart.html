@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<script>
+    var urladd = {% url 'update_item' %}
+
+</script>
+{% block content %}
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="box-element">
+
+				<a  class="btn btn-outline-dark" href="{% url 'store' %}">&#x2190; ادامه خريد </a>
+
+				<br>
+				<br>
+
+				<table class="table">
+
+					<tr>
+						<th><h5>تعداد كتاب: <strong>{{order.get_cart_items}}</strong></h5></th>
+						<th><h5>كل مبلغ:<strong> {{order.get_cart_total}} تومان</strong></h5></th>
+
+						<th>
+                            {% if request.user.is_authenticated %}
+							<a  style="float:right; margin:5px;" class="btn btn-success " href="{% url 'changestatus' order.id %}">ثبت نهايي</a>
+
+                            {% else %}
+                            	<a  style="float:right; margin:5px;" class="btn btn-success" href="{% url 'login' %}">ورود به حساب كاربري</a>
+                            {% endif %}
+						</th>
+					</tr>
+				</table>
+
+			</div>
+
+			<br>
+			<div class="box-element">
+				<div class="cart-row">
+					<div style="flex:2"></div>
+					<div style="flex:4"><strong>نام كتاب </strong></div>
+					<div style="flex:4"><strong>قيمت</strong></div>
+					<div style="flex:4"><strong>تعداد</strong></div>
+					<div style="flex:4"><strong>كل</strong></div>
+				</div>
+
+				{% for item in items %}
+				<div class="cart-row">
+{#					<div style="flex:2"><img class="row-image" src="{{item.product.imageURL}}"></div>#}
+					<div style="flex:2"><p>{{item.book.title}}</p></div>
+					<div style="flex:1"><p>تومان{{item.book.price}}</p></div>
+					<div style="flex:1">
+						<p class="quantity">{{item.quantity}}</p>
+						<div class="quantity">
+                            <hr>
+                {% csrf_token %}
+
+				<button  data-action="remove" data-book="{{ item.book.id }}" class="btn btn-outline-secondary add-btn update-cart">
+                    حذف </button>
+
+
+{#                             <input class="num form-control w-50" id="num{{ book.id }}" type="number" min="1" step="1" max="{{ book.quantity }}" value="1" placeholder="تعداد">#}
+{#                            <input class="chg-quantity" type="number"  data-product="{{item.book.id}}" data-action="add" class="chg-quantity update-cart"> {{item.quantity}}</div>#}
+{#							<img data-book="{{item.book.id}}" data-action="add" class="chg-quantity update-cart "  src="{% static 'image/arrow-up.png' %}">#}
+{#                            <button   onclick="updateUserOrder({{ item.book.id }}, action='remove')" data-book="{{ item.book.id }}" class="update-cart"> حذف  </button>#}
+{#                            {% csrf_token %}#}
+
+{#							<<img  data-book="{{item.book.id}}" data-action="remove" class="chg-quantity update-cart " src="{% static  'image/arrow-down.png' %}">#}
+						</div>
+					</div>
+					<div style="flex:1"><p> {{item.get_total}} تومان </p></div>
+				</div>
+				{% endfor %}
+
+			</div>
+		</div>
+	</div>
+{% endblock content %}
+{#</div>#}

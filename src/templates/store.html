@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+{#<script type="text/javascript" src="local_xxx.js"></script>#}
+<script src="../../Jquery/prettify.js"></script>
+
+{% load static %}
+{#<script src="https://code.jquery.com/jquery-3.6.0.min.js"#}
+{#        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>#}
+
+{% block content %}
+    <div class="row">
+    {% for book in books %}
+        <div class="col-lg-4">
+
+            <div class="box-element product alert alert-primary text-center">
+
+
+                <a href="{{ book.get_absolute_url }}"><p>{{ book.title }}</p></a>
+
+                <h6><strong>{{ book.author }}</strong></h6>
+                {#                {{ book.image }}#}
+                {% if book.img %}
+                    <img src="{{ book.img.url }}" alt="ax" style="height: 200px;">
+                {% endif %}
+                <br>
+                <br>
+                <br>
+
+                <h4 style="display: inline-block ;padding-right: 65px; float: right"><strong>قيمت:{{ book.price }}  تومان</strong></h4>
+                {#                	<a class="btn btn-outline-success" href="{% url 'book' book.id %}">View Book</a>#}
+
+
+                <br>
+                {% csrf_token %}
+
+                <button data-action="add" data-book="{{ book.id }}"
+                        class="btn btn-outline-secondary add-btn update-cart addto">
+                    اضافه به سبد خريد
+                </button>
+
+
+                <a class="btn btn-outline-success" href="{{ book.get_absolute_url }}">جزئيات</a>
+
+
+            </div>
+        </div>
+    {% endfor %}
+
+
+</div>
+
+{% endblock %}
+
+
+
+
+
+
